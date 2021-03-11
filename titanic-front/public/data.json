@@ -1,0 +1,14 @@
+{
+    "passengerID":1,
+    "pCalss":3,
+    "name":"JJ",
+    "sex": "female",
+    "age": 34.5,
+    "sibSp":0,
+    "parch":0,
+    "ticket":"12s",
+    "fare":"cos",
+    "cabin":"cossss",
+    "embarked":"Q",
+    "survived":true
+}
