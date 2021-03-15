@@ -2,57 +2,43 @@ package com.example;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import com.opencsv.bean.CsvBindByPosition;
 
 @Document(collection = "Passengers")
 public class Passenger {
     @Id
-    @CsvBindByPosition(position = 0)
     private int passengerID;
-    @CsvBindByPosition(position = 1)
     private int pClass;
 
-    @CsvBindByPosition(position = 2)
     private String name;
-    @CsvBindByPosition(position = 3)
     private String sex;
-    @CsvBindByPosition(position = 4)
     private float age;
-    @CsvBindByPosition(position = 5)
     private int sibSp;
-    @CsvBindByPosition(position = 6)
     private int parch;
-    @CsvBindByPosition(position = 7)
     private String ticket;
-    @CsvBindByPosition(position = 8)
     private float fare;
-    @CsvBindByPosition(position = 9)
     private String cabin;
-    @CsvBindByPosition(position = 10)
     private String embarked;
+//
+//    public Passenger(int passengerID, int pClass, String name, String sex, float age){
+//        this.passengerID = passengerID;
+//        this.pClass = pClass;
+//        this.name = name;
+//        this.sex = sex;
+//        this.age = age;
+//    }
 
-    public Passenger(int passengerID, int pClass, String name, String sex, float age){
+    public Passenger(int passengerID, int pClass, String name, String sex, float age, int sibSp, int parch, String ticket, float fare, String cabin, String embarked) {
         this.passengerID = passengerID;
         this.pClass = pClass;
         this.name = name;
         this.sex = sex;
         this.age = age;
-    }
-
-    public class Country {
-
-        private String startIp;
-
-        @CsvBindByPosition(position = 1)
-        private String endIp;
-
-        @CsvBindByPosition(position = 2)
-        private String countryCode;
-
-        @CsvBindByPosition(position = 3)
-        private String country;
-
-        //  getters, setters, toString
+        this.sibSp = sibSp;
+        this.parch = parch;
+        this.ticket = ticket;
+        this.fare = fare;
+        this.cabin = cabin;
+        this.embarked = embarked;
     }
 
     public int getPassengerID() {

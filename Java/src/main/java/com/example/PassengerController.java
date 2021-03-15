@@ -15,7 +15,7 @@ public class PassengerController {
         PassengerRepository passengerRepository;
 
         @GetMapping("/all")
-        public List<Passenger> getAll(){
+        public List<Passenger> getAll() throws NoSuchMethodException {
             List<Passenger> passengers = this.passengerRepository.findAll();
             return passengers;
         }
