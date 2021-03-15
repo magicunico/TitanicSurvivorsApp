@@ -1,7 +1,5 @@
-package com.example.Controller;
+package com.example;
 
-import com.example.Model.Passenger;
-import com.example.Repository.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,14 +7,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/passengers")
 public class PassengerController {
 
-
         @Autowired
-        PassengerRepository tutorialRepository;
+        PassengerRepository passengerRepository;
+
+        @GetMapping("/all")
+        public List<Passenger> getAll(){
+            List<Passenger> passengers = this.passengerRepository.findAll();
+            return passengers;
+        }
 
         @GetMapping("/passengers")
         public ResponseEntity<List<Passenger>> getAllPassengers(@RequestParam(required = false) String title) {
@@ -31,13 +33,13 @@ public class PassengerController {
         }
 
         @PostMapping("/passengers")
-        public ResponseEntity<Passenger> createPassenger(@RequestBody Passenger tutorial) {
+        public ResponseEntity<Passenger> createPassenger(@RequestBody Passenger passenger) {
 
             return null;
         }
 
         @PutMapping("/passengers/{id}")
-        public ResponseEntity<Passenger> updatePassenger(@PathVariable("id") String id, @RequestBody Passenger tutorial) {
+        public ResponseEntity<Passenger> updatePassenger(@PathVariable("id") String id, @RequestBody Passenger passenger) {
 
             return null;
         }
