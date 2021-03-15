@@ -22,7 +22,7 @@ public class DbSeeder implements CommandLineRunner {
     public void run(String... args) throws Exception {
         this.passengerRepository.deleteAll();
 
-        List<Passenger> passengers = readPassengersFromCSV("E:\\Projects\\JAVA\\titanic-java\\src\\main\\java\\com\\example\\test.csv");
+        List<Passenger> passengers = readPassengersFromCSV("C:\\Users\\julia\\Desktop\\TitanicSurvivorsApp\\Java\\src\\main\\java\\com\\example\\test.csv");
 
         this.passengerRepository.saveAll(passengers);
     }
