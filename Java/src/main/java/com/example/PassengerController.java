@@ -39,4 +39,9 @@ public class PassengerController {
         this.passengerRepository.deleteById(id);
     }
 
+    @CrossOrigin
+    @GetMapping("/{id}")
+    public Passenger getById(@PathVariable("id") String passengerID) {
+        return this.passengerRepository.findByPassengerID(passengerID);
+    }
 }
