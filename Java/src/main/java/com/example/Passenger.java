@@ -18,6 +18,7 @@ public class Passenger {
     private float fare;
     private String cabin;
     private String embarked;
+    private boolean survived;
 //
 //    public Passenger(int passengerID, int pClass, String name, String sex, float age){
 //        this.passengerID = passengerID;
@@ -27,7 +28,7 @@ public class Passenger {
 //        this.age = age;
 //    }
 
-    public Passenger(String passengerID, int pClass, String name, String sex, float age, int sibSp, int parch, String ticket, float fare, String cabin, String embarked) {
+    public Passenger(String passengerID, int pClass, String name, String sex, float age, int sibSp, int parch, String ticket, float fare, String cabin, String embarked, boolean survived) {
         this.passengerID = passengerID;
         this.pClass = pClass;
         this.name = name;
@@ -39,6 +40,7 @@ public class Passenger {
         this.fare = fare;
         this.cabin = cabin;
         this.embarked = embarked;
+        this.survived = survived;
     }
 
     public String getPassengerID() {
@@ -127,5 +129,13 @@ public class Passenger {
 
     public void setEmbarked(String embarked) {
         this.embarked = embarked;
+    }
+
+    public boolean isSurvived() {
+        return survived;
+    }
+
+    public void setSurvived(boolean survived) {
+        this.survived = survived;
     }
 }
