@@ -21,6 +21,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import { Button, TextField } from '@material-ui/core';
 
 
 const icons = {
@@ -45,22 +46,29 @@ const icons = {
 
 export default class Passengers extends React.Component {
 
-  state={
-  data:[],
-  columns:[
-    {title:"passengerID",field:"passengerID"},
-    {title:"pClass",field:"pClass"},
-    {title:"name",field:"name"},
-    {title:"sex",field:"sex"},
-    {title:"age",field:"age"},
-    {title:"sibSp",field:"sibSp"},
-    {title:"parch",field:"parch"},
-    {title:"ticket",field:"ticket"},
-    {title:"fare",field:"fare"},
-    {title:"cabin",field:"cabin"},
-    {title:"embarked",field:"embarked"},
-    {title:"survived",field:"survived"}
-  ]
+  constructor(props){
+    super(props)
+
+    this.state={
+    data:[],
+    columns:[
+      {title:"passengerID",field:"passengerID", editable:"never"},
+      {title:"pClass",field:"pClass"},
+      {title:"name",field:"name"},
+      {title:"sex",field:"sex"},
+      {title:"age",field:"age"},
+      {title:"sibSp",field:"sibSp"},
+      {title:"parch",field:"parch"},
+      {title:"ticket",field:"ticket"},
+      {title:"fare",field:"fare"},
+      {title:"cabin",field:"cabin"},
+      {title:"embarked",field:"embarked"},
+      {title:"survived",field:"survived"}
+    ],
+    searchedId:"",
+  }
+  this.setFilterId=this.setFilterId.bind(this);
+  this.filterData=this.filterData.bind(this);
 }
 
 
@@ -81,10 +89,23 @@ loadData = (resolve) =>{
     console.log("here");
     const data = res.data;
     this.setState({ data });
+    this.setState({searchedId:""})
     resolve();
   })
 }
-  
+ 
+
+loadAll = () =>{
+  axios.get(`http://localhost:8080/passengers/all`)
+  .then(res => {
+    console.log("here");
+    const data = res.data;
+    this.setState({ data });
+    this.setState({searchedId:""})
+  })
+}
+
+
 updateRow = (newData, oldData, resolve) => {
     axios.post("http://localhost:8080/passengers/", newData)
       .then(res => {
@@ -98,8 +119,6 @@ updateRow = (newData, oldData, resolve) => {
         resolve()
       })
   }
-
-  
 
   addRow=(newData, resolve) =>{
     axios.put("http://localhost:8080/passengers/", newData)
@@ -116,7 +135,6 @@ updateRow = (newData, oldData, resolve) => {
   }
 
 
-  // dont work
   deleteRow = (oldData, resolve) => {
     axios.delete("http://localhost:8080/passengers/"+oldData.passengerID)
     .then(res=>{
@@ -132,11 +150,51 @@ updateRow = (newData, oldData, resolve) => {
     })
   }
 
+  setFilterId = (input) =>{
+    console.log(this.state.searchedId);
+    this.setState({searchedId:input});
+    console.log(input);
+  }
+
+
+  filterData() {
+    console.log("hereeeee")
+    console.log(this.state.searchedId+"too");
+    if(this.state.searchedId!==null && this.state.searchedId!==""){
+    axios.get(`http://localhost:8080/passengers/`+this.state.searchedId)
+      .then(res => {
+        console.log("here");
+        let newData=[];
+        newData.push(res.data);
+        const data = newData;
+        this.setState({ data });
+      })
+    }else{
+      new Promise((resolve) => {
+        this.loadData(resolve);    
+      })
+    }
+  }
+
+
+
+
 
 render(){
   return (
     <div className="App">
       <Grid container spacing={1}>
+          <Grid item>
+            <div>
+              <TextField type="text"
+              placeholder="Id.."
+              value={this.state.searchedId}
+              onChange={(input) =>  this.setFilterId(input.target.value)}
+              />
+              <Button onClick={this.filterData}>Filter</Button>
+              <Button onClick={this.loadAll}>Show all data</Button>
+            </div>
+          </Grid>
           <Grid item>
             <MaterialTable
               title="Titanic passengers"
