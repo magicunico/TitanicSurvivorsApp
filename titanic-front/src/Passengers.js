@@ -98,10 +98,15 @@ loadData = (resolve) =>{
 loadAll = () =>{
   axios.get(`http://localhost:8080/passengers/all`)
   .then(res => {
-    console.log("here");
+    console.log("here laduje");
     const data = res.data;
     this.setState({ data });
+    console.log("here jest");
     this.setState({searchedId:""})
+    console.log("tu ustawione");
+    // window.location.reload();
+  }).catch(error => {
+    console.log(error)
   })
 }
 
@@ -160,8 +165,9 @@ updateRow = (newData, oldData, resolve) => {
   filterData() {
     console.log("hereeeee")
     console.log(this.state.searchedId+"too");
-    if(this.state.searchedId!==null && this.state.searchedId!==""){
-    axios.get(`http://localhost:8080/passengers/`+this.state.searchedId)
+    if(this.state.searchedId!==null && this.state.searchedId!=="" && Number(this.state.searchedId)>890 && Number(this.state.searchedId)<1320){
+      console.log(Number(this.state.searchedId));
+      axios.get(`http://localhost:8080/passengers/`+this.state.searchedId)
       .then(res => {
         console.log("here");
         let newData=[];
@@ -169,10 +175,11 @@ updateRow = (newData, oldData, resolve) => {
         const data = newData;
         this.setState({ data });
       })
-    }else{
-      new Promise((resolve) => {
-        this.loadData(resolve);    
-      })
+    }else if(Number(this.state.searchedId)<890||Number(this.state.searchedId)>1320){
+      this.setState({data:[]});
+    }
+    else{
+      this.loadAll();
     }
   }
 
