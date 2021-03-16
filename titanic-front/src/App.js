@@ -8,11 +8,7 @@ function App() {
    <Tabs> 
      <div label="Passengers data"> 
        <Passengers/>
-     </div> 
-     <div label="Stats"> 
-       After 'while, <em>Crocodile</em>! 
-     </div> 
-     
+     </div>      
    </Tabs> 
   );
 }
