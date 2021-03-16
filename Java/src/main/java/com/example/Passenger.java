@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Passengers")
 public class Passenger {
     @Id
-    private int passengerID;
+    private String passengerID;
     private int pClass;
 
     private String name;
@@ -27,7 +27,7 @@ public class Passenger {
 //        this.age = age;
 //    }
 
-    public Passenger(int passengerID, int pClass, String name, String sex, float age, int sibSp, int parch, String ticket, float fare, String cabin, String embarked) {
+    public Passenger(String passengerID, int pClass, String name, String sex, float age, int sibSp, int parch, String ticket, float fare, String cabin, String embarked) {
         this.passengerID = passengerID;
         this.pClass = pClass;
         this.name = name;
@@ -41,11 +41,11 @@ public class Passenger {
         this.embarked = embarked;
     }
 
-    public int getPassengerID() {
+    public String getPassengerID() {
         return passengerID;
     }
 
-    public void setPassengerID(int passengerID) {
+    public void setPassengerID(String passengerID) {
         this.passengerID = passengerID;
     }
 

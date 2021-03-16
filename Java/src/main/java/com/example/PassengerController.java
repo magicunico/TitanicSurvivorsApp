@@ -11,63 +11,32 @@ import java.util.List;
 @RequestMapping("/passengers")
 public class PassengerController {
 
-        @Autowired
-        PassengerRepository passengerRepository;
-
-        @CrossOrigin
-        @GetMapping("/all")
-        public List<Passenger> getAll() throws NoSuchMethodException {
-            List<Passenger> passengers = this.passengerRepository.findAll();
-            return passengers;
-        }
+    @Autowired
+    PassengerRepository passengerRepository;
 
     @CrossOrigin
-    @GetMapping("/passengers")
-        public ResponseEntity<List<Passenger>> getAllPassengers(@RequestParam(required = false) String title) {
-
-            return null;
-        }
-
-    @CrossOrigin
-        @GetMapping("/passengers/{id}")
-        public ResponseEntity<Passenger> getPassengerById(@PathVariable("id") String id) {
-
-            return null;
-        }
+    @GetMapping("/all")
+    public List<Passenger> getAll() throws NoSuchMethodException {
+        List<Passenger> passengers = this.passengerRepository.findAll();
+        return passengers;
+    }
 
     @CrossOrigin
-        @PostMapping("/passengers")
-        public ResponseEntity<Passenger> createPassenger(@RequestBody Passenger passenger) {
-
-            return null;
-        }
-
-    @CrossOrigin
-        @PutMapping("/passengers/{id}")
-        public ResponseEntity<Passenger> updatePassenger(@PathVariable("id") String id, @RequestBody Passenger passenger) {
-
-            return null;
-        }
+    @PutMapping
+    public void createPassenger(@RequestBody Passenger passenger) {
+        this.passengerRepository.insert(passenger);
+    }
 
     @CrossOrigin
-        @DeleteMapping("/passengers/{id}")
-        public ResponseEntity<HttpStatus> deletePassenger(@PathVariable("id") String id) {
-
-            return null;
-        }
-
-    @CrossOrigin
-        @DeleteMapping("/passengers")
-        public ResponseEntity<HttpStatus> deleteAllPassengers() {
-
-            return null;
-        }
+    @PostMapping
+    public void updatePassenger(@RequestBody Passenger passenger) {
+        this.passengerRepository.save(passenger);
+    }
 
     @CrossOrigin
-        @GetMapping("/passengers/published")
-        public ResponseEntity<List<Passenger>> findByPublished() {
-            return null;
-        }
-
+    @DeleteMapping("/{id}")
+    public void deletePassenger(@PathVariable("id") String id) {
+        this.passengerRepository.deleteById(id);
+    }
 
 }
