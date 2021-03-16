@@ -52,18 +52,18 @@ export default class Passengers extends React.Component {
     this.state={
     data:[],
     columns:[
-      {title:"passengerID",field:"passengerID", editable:"never"},
-      {title:"pClass",field:"pClass"},
-      {title:"name",field:"name"},
-      {title:"sex",field:"sex"},
-      {title:"age",field:"age"},
-      {title:"sibSp",field:"sibSp"},
-      {title:"parch",field:"parch"},
-      {title:"ticket",field:"ticket"},
-      {title:"fare",field:"fare"},
-      {title:"cabin",field:"cabin"},
-      {title:"embarked",field:"embarked"},
-      {title:"survived",field:"survived"}
+      {title:"Passenger ID",field:"passengerID", editable:"never"},
+      {title:"Class",field:"pClass"},
+      {title:"Name",field:"name"},
+      {title:"Sex",field:"sex"},
+      {title:"Age",field:"age"},
+      {title:"Siblings/Spouse",field:"sibSp"},
+      {title:"Parch",field:"parch"},
+      {title:"Ticket",field:"ticket"},
+      {title:"Fare",field:"fare"},
+      {title:"Cabin",field:"cabin"},
+      {title:"Embarked",field:"embarked"},
+      {title:"Survived",field:"survived"}
     ],
     searchedId:"",
   }
