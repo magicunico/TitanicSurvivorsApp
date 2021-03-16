@@ -1,6 +1,6 @@
-import logo from './logo.svg';
+
 import './App.css';
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from 'axios'
 import MaterialTable from "material-table";
 import Grid from '@material-ui/core/Grid'
@@ -74,84 +74,64 @@ componentDidMount() {
       this.setState({ data });
     })
 }
+
+loadData = (resolve) =>{
+  axios.get(`http://localhost:8080/passengers/all`)
+  .then(res => {
+    console.log("here");
+    const data = res.data;
+    this.setState({ data });
+    resolve();
+  })
+}
   
 updateRow = (newData, oldData, resolve) => {
-    // axios.put("http://localhost:8080/passengers/"+newData.id, newData)
-    //   .then(res => {
-    //     const dataUpdate = this.setState.data;
-    //     const index = oldData.tableData.id;
-    //     dataUpdate[index] = newData;
-    //     this.setState({data:dataUpdate})
-    //     resolve()
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //     resolve()
-    //   })
-
-    console.log(newData);
-    const dataUpdate = this.setState.data;
-    const index = oldData.tableData.id;
-    dataUpdate[index] = newData;
-    this.setState({data:dataUpdate});
-    resolve();
+    axios.post("http://localhost:8080/passengers/", newData)
+      .then(res => {
+        new Promise((resolve) => {
+          this.loadData(resolve);    
+        })
+        resolve();
+      })
+      .catch(error => {
+        console.log(error)
+        resolve()
+      })
   }
 
   
 
   addRow=(newData, resolve) =>{
-    // axios.post("http://localhost:8080/passengers/", newData)
-    // .then(res => {
-    //   let dataToAdd = this.setState.data;
-    //   dataToAdd.push(newData);
-    //   this.setState({data:dataToAdd})
-    //   resolve()
-    // })
-    // .catch(error => {
-    //   console.log(error)
-    //   resolve()
-    // })
-  
-    console.log(newData);
-    let dataToAdd = this.setState.data;
-    dataToAdd.push(newData);
-    this.setState({data:dataToAdd})
-    resolve()
-      
+    axios.put("http://localhost:8080/passengers/", newData)
+    .then(res => {
+      this.setState(prevState => ({
+        data: [...prevState.data, newData]
+      }))
+      resolve()
+    })
+    .catch(error => {
+      console.log(error)
+      resolve()
+    })
   }
 
 
+  // dont work
+  deleteRow = (oldData, resolve) => {
+    axios.delete("http://localhost:8080/passengers/"+oldData.passengerID)
+    .then(res=>{
+      console.log(oldData)
+      new Promise((resolve) => {
+        this.loadData(resolve);    
+      })
+      resolve();
+    })
+    .catch(error => {
+      console.log(error)
+      resolve()
+    })
+  }
 
-//   addRow = (newData, resolve) => {
-//       axios.post("http://localhost:8080/passengers", newData)
-//       .then(res => {
-//         let dataToAdd = [...data];
-//         dataToAdd.push(newData);
-//         setData(dataToAdd);
-//         resolve()
-        
-//       })
-//       .catch(error => {
-//         console.log(error)
-//         resolve()
-//       })
-//   }
-
-//   deleteRow = (oldData, resolve) => {
-
-//     axios.delete("http://localhost:8080/passengers/"+oldData.id)
-//       .then(res => {
-//         const dataDelete = [...data];
-//         const index = oldData.tableData.id;
-//         dataDelete.splice(index, 1);
-//         setData([...dataDelete]);
-//         resolve()
-//       })
-//       .catch(error => {
-//       console.log(error)
-//       resolve()
-//       })
-//   }
 
 render(){
   return (
@@ -172,10 +152,10 @@ render(){
                   new Promise((resolve) => {
                     this.addRow(newData, resolve)
                   }),
-              //   onRowDelete: (oldData) =>
-              //     new Promise((resolve) => {
-              //       deleteRow(oldData, resolve)
-              //     }),
+                onRowDelete: (oldData) =>
+                  new Promise((resolve) => {
+                    this.deleteRow(oldData, resolve)
+                  }),
               }}
             />
           </Grid>
