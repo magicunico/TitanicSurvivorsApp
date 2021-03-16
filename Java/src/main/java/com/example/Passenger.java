@@ -19,14 +19,6 @@ public class Passenger {
     private String cabin;
     private String embarked;
     private boolean survived;
-//
-//    public Passenger(int passengerID, int pClass, String name, String sex, float age){
-//        this.passengerID = passengerID;
-//        this.pClass = pClass;
-//        this.name = name;
-//        this.sex = sex;
-//        this.age = age;
-//    }
 
     public Passenger(String passengerID, int pClass, String name, String sex, float age, int sibSp, int parch, String ticket, float fare, String cabin, String embarked, boolean survived) {
         this.passengerID = passengerID;
